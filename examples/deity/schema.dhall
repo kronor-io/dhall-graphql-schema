@@ -22,7 +22,7 @@ let Query =
         , fields = toMap
             { deity = GraphQL.Field::{
               , comment = Some "Get a deity by name"
-              , type = GraphQL.FieldType.Custom "Deity"
+              , type = GraphQL.FieldType.Node Deity
               , nullable = False
               , arguments = Some
                   ( toMap
