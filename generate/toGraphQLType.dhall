@@ -9,8 +9,8 @@ in  \(withComments : Bool) ->
       let comment = if withComments then data.comment else None Text
 
       in  ''
-          ${toGraphQLComment comment}
-          type ${data.name} {
+          ${toGraphQLComment comment}type ${data.name} {
+
           ${toGraphQLFields withComments data.fields}
           }
           ''

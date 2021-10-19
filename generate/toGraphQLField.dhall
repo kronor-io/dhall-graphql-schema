@@ -12,10 +12,10 @@ in  \(withComments : Bool) ->
       let comment = if withComments then field.comment else None Text
 
       in  ''
-          ${toGraphQLComment comment}
-            ${name}${toGraphQLArguments
-                       withComments
-                       field.arguments} : ${toGraphQLFieldType
-                                              field.type
-                                              field.nullable}
+          ${toGraphQLComment
+              comment}${name}${toGraphQLArguments
+                                 withComments
+                                 field.arguments} : ${toGraphQLFieldType
+                                                        field.type
+                                                        field.nullable}
           ''

@@ -1,0 +1,31 @@
+"""
+Description for Deity
+"""
+type Deity {
+
+"""
+The name of this deity
+"""
+name : String!
+
+power : String!
+
+}
+
+type Query {
+
+"""
+Get a deity by name
+"""
+deity(
+
+  name : String!
+  ) : Deity!
+
+power : String!
+
+}
+
+schema {
+  query: Query
+}
