@@ -2,21 +2,35 @@ let concatMapSep = (../Prelude.dhall).Text.concatMapSep
 
 let Node = ../types/Node.dhall
 
-let Schema =
-      { enums : List Node
-      , inputs : List Node
-      , types : List Node
-      , query : Text
-      , mutation : Optional Text
-      }
+let NodeData = ../types/NodeData.dhall
+
+let Enum = ../types/Enum.dhall
+
+let InputData = ../types/InputData.dhall
+
+let Schema = ../types/Schema.dhall
 
 let toGraphQL = ./toGraphQL.dhall
 
+let extractNodeName =
+      \(node : Node) ->
+        merge
+          { type = \(d : NodeData) -> d.name
+          , enum = \(d : Enum) -> "error: cannot use an enum at this level"
+          , input =
+              \(d : InputData) -> "error: cannot use an input at this level"
+          }
+          node
+
 in  \(withComments : Bool) ->
     \(schema : Schema) ->
+      let query = extractNodeName schema.query
+
       let mutation =
             merge
-              { None = "", Some = \(m : Text) -> "mutation: ${m}" }
+              { None = ""
+              , Some = \(m : Node) -> "mutation: ${extractNodeName m}"
+              }
               schema.mutation
 
       in  ''
@@ -24,7 +38,7 @@ in  \(withComments : Bool) ->
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.inputs}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.types}
           schema {
-            query: ${schema.query}
+            query: ${query}
             ${mutation}
           }
           ''

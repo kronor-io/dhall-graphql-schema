@@ -39,4 +39,4 @@ let Query =
 
 in  GraphQL.toGraphQLSchema
       True
-      GraphQL.Schema::{ types = [ Deity, Query ], query = "Query" }
+      GraphQL.Schema::{ types = [ Deity, Query ], query = Query }
