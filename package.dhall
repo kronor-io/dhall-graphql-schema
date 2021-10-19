@@ -9,4 +9,5 @@
 , Schema = ./schemas/Schema.dhall
 , toGraphQLSchema = ./generate/toGraphQLSchema.dhall
 , toGraphQL = ./generate/toGraphQL.dhall
+, emptyDirective = [] : List { mapKey : Text, mapValue : Text }
 }

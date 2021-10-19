@@ -6,6 +6,18 @@ let toGraphQLArguments = ./toGraphQLArguments.dhall
 
 let Field = ../types/Field.dhall
 
+let Directives = ../types/Directives.dhall
+
+let toGraphQLDirectives = ./toGraphQLDirectives.dhall
+
+let toDirectives =
+      \(d : Optional Directives) ->
+        merge
+          { None = ""
+          , Some = \(ds : Directives) -> " ${toGraphQLDirectives ds}"
+          }
+          d
+
 in  \(withComments : Bool) ->
     \(name : Text) ->
     \(field : Field) ->
@@ -17,5 +29,6 @@ in  \(withComments : Bool) ->
                                  withComments
                                  field.arguments} : ${toGraphQLFieldType
                                                         field.type
-                                                        field.nullable}
+                                                        field.nullable}${toDirectives
+                                                                           field.directives}
           ''

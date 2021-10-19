@@ -2,9 +2,19 @@ let toGraphQLComment = ./toGraphQLComment.dhall
 
 let toGraphQLFieldType = ./toGraphQLFieldType.dhall
 
-let toGraphQLPreset = ./toGraphQLPreset.dhall
+let toGraphQLDirectives = ./toGraphQLDirectives.dhall
 
 let InputField = ../types/InputField.dhall
+
+let Directives = ../types/Directives.dhall
+
+let toDirectives =
+      \(d : Optional Directives) ->
+        merge
+          { None = ""
+          , Some = \(ds : Directives) -> " ${toGraphQLDirectives ds}"
+          }
+          d
 
 in  \(withComments : Bool) ->
     \(name : Text) ->
@@ -15,5 +25,5 @@ in  \(withComments : Bool) ->
           ${toGraphQLComment comment}
             ${name} : ${toGraphQLFieldType
                           field.type
-                          field.nullable}${toGraphQLPreset field.preset}
+                          field.nullable}${toDirectives field.directives}
           ''

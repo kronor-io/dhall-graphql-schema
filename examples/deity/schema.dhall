@@ -11,7 +11,15 @@ let Deity =
               , type = GraphQL.FieldType.String
               , nullable = False
               }
-            , power = GraphQL.Field::{ type = GraphQL.FieldType.String }
+            , power = GraphQL.Field::{
+              , type = GraphQL.FieldType.String
+              , directives = Some
+                  ( toMap
+                      { deprecated = toMap
+                          { reason = "all deities now have the same power" }
+                      }
+                  )
+              }
             }
         }
 

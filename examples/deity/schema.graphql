@@ -8,7 +8,7 @@ The name of this deity
 """
 name : String!
 
-power : String!
+power : String! @deprecated(reason: "all deities now have the same power")
 
 }
 
