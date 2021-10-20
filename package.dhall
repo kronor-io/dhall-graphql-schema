@@ -1,4 +1,4 @@
-{ Node = ./schemas/Node.dhall
+{ GQLType = ./schemas/GQLType.dhall
 , Enum = ./schemas/Enum.dhall
 , Input = ./schemas/Input.dhall
 , Field = ./schemas/Field.dhall
@@ -7,6 +7,7 @@
 , FieldType = ./schemas/FieldType.dhall
 , Scalar = ./types/Scalar.dhall
 , Schema = ./schemas/Schema.dhall
+, Node = ./types/Node.dhall
 , toGraphQLSchema = ./generate/toGraphQLSchema.dhall
 , toGraphQL = ./generate/toGraphQL.dhall
 , emptyDirective = [] : List { mapKey : Text, mapValue : Text }

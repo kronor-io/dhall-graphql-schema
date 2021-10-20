@@ -2,7 +2,7 @@ let FieldType = ../types/Type.dhall
 
 let Node = ../types/Node.dhall
 
-let NodeData = ../types/NodeData.dhall
+let TypeData = ../types/TypeData.dhall
 
 let Enum = ../types/Enum.dhall
 
@@ -13,7 +13,7 @@ let Scalar = ../types/Scalar.dhall
 let nodeToCustom =
       \(node : Node) ->
         merge
-          { type = \(d : NodeData) -> Scalar.Custom d.name
+          { type = \(d : TypeData) -> Scalar.Custom d.name
           , enum = \(d : Enum) -> Scalar.Custom d.name
           , input = \(d : InputData) -> Scalar.Custom d.name
           }

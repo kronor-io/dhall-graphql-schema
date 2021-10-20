@@ -1,7 +1,7 @@
-let NodeData = ./NodeData.dhall
+let TypeData = ./TypeData.dhall
 
 let InputData = ./InputData.dhall
 
 let Enum = ./Enum.dhall
 
-in  < type : NodeData | enum : Enum | input : InputData >
+in  < type : TypeData | enum : Enum | input : InputData >

@@ -1,11 +1,11 @@
-let NodeData = ../types/NodeData.dhall
+let TypeData = ../types/TypeData.dhall
 
 let toGraphQLComment = ./toGraphQLComment.dhall
 
 let toGraphQLFields = ./toGraphQLFields.dhall
 
 in  \(withComments : Bool) ->
-    \(data : NodeData) ->
+    \(data : TypeData) ->
       let comment = if withComments then data.comment else None Text
 
       in  ''

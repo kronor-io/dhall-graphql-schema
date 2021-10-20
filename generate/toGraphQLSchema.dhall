@@ -2,7 +2,7 @@ let concatMapSep = (../Prelude.dhall).Text.concatMapSep
 
 let Node = ../types/Node.dhall
 
-let NodeData = ../types/NodeData.dhall
+let TypeData = ../types/TypeData.dhall
 
 let Enum = ../types/Enum.dhall
 
@@ -15,7 +15,7 @@ let toGraphQL = ./toGraphQL.dhall
 let extractNodeName =
       \(node : Node) ->
         merge
-          { type = \(d : NodeData) -> d.name
+          { type = \(d : TypeData) -> d.name
           , enum = \(d : Enum) -> "error: cannot use an enum at this level"
           , input =
               \(d : InputData) -> "error: cannot use an input at this level"

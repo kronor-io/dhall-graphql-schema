@@ -1,8 +1,8 @@
 let GraphQL = ../../package.dhall
 
 let Deity =
-      GraphQL.Node.new
-        GraphQL.Node::{
+      GraphQL.GQLType.new
+        GraphQL.GQLType::{
         , name = "Deity"
         , comment = Some "Description for Deity"
         , fields = toMap
@@ -24,8 +24,8 @@ let Deity =
         }
 
 let Query =
-      GraphQL.Node.new
-        GraphQL.Node::{
+      GraphQL.GQLType.new
+        GraphQL.GQLType::{
         , name = "Query"
         , fields = toMap
             { deity = GraphQL.Field::{
