@@ -6,6 +6,7 @@
 , Label = ./schemas/Label.dhall
 , FieldType = ./schemas/FieldType.dhall
 , Scalar = ./types/Scalar.dhall
+, RawType = ./types/Type.dhall
 , Schema = ./schemas/Schema.dhall
 , Node = ./types/Node.dhall
 , toGraphQLSchema = ./generate/toGraphQLSchema.dhall
