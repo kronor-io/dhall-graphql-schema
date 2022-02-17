@@ -2,6 +2,8 @@ let concatMapSep = (../Prelude.dhall).Text.concatMapSep
 
 let Node = ../types/Node.dhall
 
+let Scalar = ../types/Scalar.dhall
+
 let TypeData = ../types/TypeData.dhall
 
 let Enum = ../types/Enum.dhall
@@ -11,6 +13,8 @@ let InputData = ../types/InputData.dhall
 let Schema = ../types/Schema.dhall
 
 let toGraphQL = ./toGraphQL.dhall
+
+let toGraphQLScalar = ./toGraphQLScalar.dhall
 
 let extractNodeName =
       \(node : Node) ->
@@ -34,6 +38,11 @@ in  \(withComments : Bool) ->
               schema.mutation
 
       in  ''
+          ${concatMapSep
+              "\n"
+              Scalar
+              (\(x : Scalar) -> "scalar " ++ toGraphQLScalar x)
+              schema.scalars}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.enums}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.inputs}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.types}
