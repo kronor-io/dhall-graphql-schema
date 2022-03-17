@@ -10,11 +10,16 @@ let InputData = ../types/InputData.dhall
 
 let Scalar = ../types/Scalar.dhall
 
+let Union = ../types/Union.dhall
+
+let Map = (../Prelude.dhall).Map.Type
+
 let nodeToCustom =
       \(node : Node) ->
         merge
           { type = \(d : TypeData) -> Scalar.Custom d.name
           , enum = \(d : Enum) -> Scalar.Custom d.name
+          , union = \(d : Union) -> Scalar.Custom d.name
           , input = \(d : InputData) -> Scalar.Custom d.name
           }
           node
