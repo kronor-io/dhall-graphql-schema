@@ -4,5 +4,9 @@ let Node = ../types/Node.dhall
 
 in  { Type = Schema
     , default =
-      { enums = [] : List Node, inputs = [] : List Node, mutation = None Node }
+      { enums = [] : List Node
+      , unions = [] : List Node
+      , inputs = [] : List Node
+      , mutation = None Node
+      }
     }

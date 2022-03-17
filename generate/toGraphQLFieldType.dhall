@@ -1,5 +1,7 @@
 let Scalar = ../types/Scalar.dhall
 
+let Union = ../types/Union.dhall
+
 let ListTypeData = ../types/ListTypeData.dhall
 
 let toGraphQLScalar = ./toGraphQLScalar.dhall
@@ -7,6 +9,8 @@ let toGraphQLScalar = ./toGraphQLScalar.dhall
 let toNonNullable = \(nullable : Bool) -> if nullable then "" else "!"
 
 let FieldType = ../types/Type.dhall
+
+let Map = (../Prelude.dhall).Map.Type
 
 in  \(type : FieldType) ->
     \(nullability : Bool) ->

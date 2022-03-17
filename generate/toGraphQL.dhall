@@ -4,6 +4,8 @@ let toGraphQLType = ./toGraphQLType.dhall
 
 let toGraphQLEnum = ./toGraphQLEnum.dhall
 
+let toGraphQLUnion = ./toGraphQLUnion.dhall
+
 let toGraphQLInput = ./toGraphQLInput.dhall
 
 let toGraphQL =
@@ -12,6 +14,7 @@ let toGraphQL =
         merge
           { type = toGraphQLType withComments
           , enum = toGraphQLEnum withComments
+          , union = toGraphQLUnion withComments
           , input = toGraphQLInput withComments
           }
           node

@@ -3,6 +3,7 @@ let Node = ./Node.dhall
 let Scalar = ./Scalar.dhall
 
 in  { enums : List Node
+    , unions : List Node
     , inputs : List Node
     , scalars : List Scalar
     , types : List Node

@@ -1,5 +1,6 @@
 { GQLType = ./schemas/GQLType.dhall
 , Enum = ./schemas/Enum.dhall
+, Union = ./schemas/Union.dhall
 , Input = ./schemas/Input.dhall
 , Field = ./schemas/Field.dhall
 , InputField = ./schemas/InputField.dhall

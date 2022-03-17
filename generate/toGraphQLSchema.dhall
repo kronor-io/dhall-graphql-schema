@@ -12,6 +12,8 @@ let InputData = ../types/InputData.dhall
 
 let Schema = ../types/Schema.dhall
 
+let Union = ../types/Union.dhall
+
 let toGraphQL = ./toGraphQL.dhall
 
 let toGraphQLScalar = ./toGraphQLScalar.dhall
@@ -21,6 +23,7 @@ let extractNodeName =
         merge
           { type = \(d : TypeData) -> d.name
           , enum = \(d : Enum) -> "error: cannot use an enum at this level"
+          , union = \(d : Union) -> "error: cannot use a union at this level"
           , input =
               \(d : InputData) -> "error: cannot use an input at this level"
           }
@@ -44,6 +47,7 @@ in  \(withComments : Bool) ->
               (\(x : Scalar) -> "scalar " ++ toGraphQLScalar x)
               schema.scalars}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.enums}
+          ${concatMapSep "\n" Node (toGraphQL withComments) schema.unions}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.inputs}
           ${concatMapSep "\n" Node (toGraphQL withComments) schema.types}
           schema {
