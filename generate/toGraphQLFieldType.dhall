@@ -8,14 +8,12 @@ let toGraphQLScalar = ./toGraphQLScalar.dhall
 
 let toNonNullable = \(nullable : Bool) -> if nullable then "" else "!"
 
-let FieldType = ../types/Type.dhall
+let Multiplicity = ../types/Multiplicity.dhall
 
-let Map = (../Prelude.dhall).Map.Type
-
-in  \(type : FieldType) ->
+in  \(type : Multiplicity) ->
     \(nullability : Bool) ->
       merge
-        { Scalar =
+        { Single =
             \(s : Scalar) -> toGraphQLScalar s ++ toNonNullable nullability
         , List =
             \(data : ListTypeData) ->

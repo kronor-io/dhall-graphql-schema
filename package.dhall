@@ -7,9 +7,9 @@
 , Label = ./schemas/Label.dhall
 , FieldType = ./schemas/FieldType.dhall
 , Scalar = ./types/Scalar.dhall
-, RawType = ./types/Type.dhall
+, Multiplicity = ./types/Multiplicity.dhall
 , Schema = ./schemas/Schema.dhall
-, Node = ./types/Node.dhall
+, Declaration = ./types/Declaration.dhall
 , toGraphQLSchema = ./generate/toGraphQLSchema.dhall
 , toGraphQL = ./generate/toGraphQL.dhall
 , emptyDirective = [] : List { mapKey : Text, mapValue : Text }

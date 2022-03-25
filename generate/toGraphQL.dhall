@@ -1,4 +1,4 @@
-let Node = ../types/Node.dhall
+let Declaration = ../types/Declaration.dhall
 
 let toGraphQLType = ./toGraphQLType.dhall
 
@@ -10,13 +10,13 @@ let toGraphQLInput = ./toGraphQLInput.dhall
 
 let toGraphQL =
       \(withComments : Bool) ->
-      \(node : Node) ->
+      \(declaration : Declaration) ->
         merge
           { type = toGraphQLType withComments
           , enum = toGraphQLEnum withComments
           , union = toGraphQLUnion withComments
           , input = toGraphQLInput withComments
           }
-          node
+          declaration
 
 in  toGraphQL

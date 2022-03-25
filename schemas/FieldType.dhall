@@ -1,6 +1,6 @@
-let FieldType = ../types/Type.dhall
+let Multiplicity = ../types/Multiplicity.dhall
 
-let Node = ../types/Node.dhall
+let Declaration = ../types/Declaration.dhall
 
 let TypeData = ../types/TypeData.dhall
 
@@ -12,10 +12,8 @@ let Scalar = ../types/Scalar.dhall
 
 let Union = ../types/Union.dhall
 
-let Map = (../Prelude.dhall).Map.Type
-
 let nodeToCustom =
-      \(node : Node) ->
+      \(node : Declaration) ->
         merge
           { type = \(d : TypeData) -> Scalar.Custom d.name
           , enum = \(d : Enum) -> Scalar.Custom d.name
@@ -24,22 +22,49 @@ let nodeToCustom =
           }
           node
 
-in  { Int = FieldType.Scalar Scalar.Int
-    , String = FieldType.Scalar Scalar.String
-    , Boolean = FieldType.Scalar Scalar.Boolean
-    , ID = FieldType.Scalar Scalar.ID
-    , Float = FieldType.Scalar Scalar.Float
-    , Custom = \(name : Text) -> FieldType.Scalar (Scalar.Custom name)
-    , NonNullableList =
-        \(of : Scalar) -> FieldType.List { of, nullable = False }
-    , List =
-        \(of : Scalar) -> \(nullable : Bool) -> FieldType.List { of, nullable }
-    , Node = \(node : Node) -> FieldType.Scalar (nodeToCustom node)
-    , NodeList =
-        \(node : Node) ->
-        \(nullable : Bool) ->
-          FieldType.List { of = nodeToCustom node, nullable }
-    , NonNullableNodeList =
-        \(node : Node) ->
-          FieldType.List { of = nodeToCustom node, nullable = False }
+let Custom = \(name : Text) -> Multiplicity.Single (Scalar.Custom name)
+
+let NonNullableList =
+      \(of : Text) ->
+        Multiplicity.List { of = Scalar.Custom of, nullable = False }
+
+let List_ =
+      \(of : Text) ->
+      \(nullable : Bool) ->
+        Multiplicity.List { of = Scalar.Custom of, nullable }
+
+let fromDeclaration =
+      \(node : Declaration) -> Multiplicity.Single (nodeToCustom node)
+
+let listOfDeclaration =
+      \(node : Declaration) ->
+      \(nullable : Bool) ->
+        Multiplicity.List { of = nodeToCustom node, nullable }
+
+let nonNullablelistOfDeclaration =
+      \(node : Declaration) ->
+        Multiplicity.List { of = nodeToCustom node, nullable = False }
+
+let fromScalar = \(node : Scalar) -> Multiplicity.Single node
+
+let listOfScalar =
+      \(node : Scalar) -> Multiplicity.List { of = node, nullable = True }
+
+let nonNullableListOfScalar =
+      \(node : Scalar) -> Multiplicity.List { of = node, nullable = False }
+
+in  { Int = Multiplicity.Single Scalar.Int
+    , String = Multiplicity.Single Scalar.String
+    , Boolean = Multiplicity.Single Scalar.Boolean
+    , ID = Multiplicity.Single Scalar.ID
+    , Float = Multiplicity.Single Scalar.Float
+    , Custom
+    , List = List_
+    , NonNullableList
+    , fromDeclaration
+    , listOfDeclaration
+    , nonNullablelistOfDeclaration
+    , fromScalar
+    , listOfScalar
+    , nonNullableListOfScalar
     }

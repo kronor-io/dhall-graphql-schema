@@ -1,12 +1,12 @@
-let Node = ./Node.dhall
+let Declaration = ./Declaration.dhall
 
 let Scalar = ./Scalar.dhall
 
-in  { enums : List Node
-    , unions : List Node
-    , inputs : List Node
+in  { enums : List Declaration
+    , unions : List Declaration
+    , inputs : List Declaration
     , scalars : List Scalar
-    , types : List Node
-    , query : Node
-    , mutation : Optional Node
+    , types : List Declaration
+    , query : Declaration
+    , mutation : Optional Declaration
     }
