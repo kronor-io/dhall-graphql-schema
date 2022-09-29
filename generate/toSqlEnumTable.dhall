@@ -6,8 +6,6 @@ let Label = ../types/Label.dhall
 
 let Enum = ../types/Enum.dhall
 
-let GraphQL = ../package.dhall
-
 let Entry = { mapKey : Text, mapValue : Label }
 
 let entryToText =
@@ -16,20 +14,19 @@ let entryToText =
         ('${entry.mapKey}', '${merge { None = "", Some = \(t : Text) -> t } entry.mapValue.comment}')
         ''
 
--- TODO: convert data.name to snake case
-let toSqlEnumTable =
+in
     \(data : Enum) ->
         ''
         -- AUTO GENERATED FROM .dhall FILE, DO NOT EDIT MANUALLY
 
         begin;
 
-            create table if not exists public.${data.name} (
+            create table if not exists public.${data.tableName} (
                 name text_100 not null primary key,
                 comment text not null
             );
 
-            insert into public.${data.name}
+            insert into public.${data.tableName}
                 (name, comment)
                 values
                 ${concatMapSep "," Entry entryToText data.labels}
@@ -37,21 +34,3 @@ let toSqlEnumTable =
 
         commit;
         ''
-
-
-let country =
-    -- GraphQL.Enum.new
-        GraphQL.Enum::{
-        , name = "payment_method"
-        , comment = Some "Supported countries"
-        , labels = toMap
-            { DK = GraphQL.Label::{ name = "DK" }
-            , IS = GraphQL.Label::{ name = "IS" }
-            , NO = GraphQL.Label::{ name = "NO" }
-            , SE = GraphQL.Label::{ name = "SE", comment = Some "number 1" }
-            }
-        }
-
-
-in  { country = toSqlEnumTable country
-    }

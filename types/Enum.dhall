@@ -2,4 +2,4 @@ let Map = (../Prelude.dhall).Map.Type
 
 let Label = ./Label.dhall
 
-in  { name : Text, comment : Optional Text, labels : Map Text Label }
+in  { name : Text, tableName : Text, comment : Optional Text, labels : Map Text Label }
