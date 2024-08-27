@@ -16,7 +16,7 @@ let Deity =
               , directives = Some
                   ( toMap
                       { deprecated = toMap
-                          { reason = "all deities now have the same power" }
+                          { reason = Some "all deities now have the same power" }
                       }
                   )
               }

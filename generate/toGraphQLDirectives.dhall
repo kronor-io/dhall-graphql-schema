@@ -4,7 +4,7 @@ let concatMapSep = (../Prelude.dhall).Text.concatMapSep
 
 let Directives = ../types/Directives.dhall
 
-let Entry = { mapKey : Text, mapValue : Map Text Text }
+let Entry = { mapKey : Text, mapValue : Map Text (Optional Text) }
 
 let toGraphQLDirective = ./toGraphQLDirective.dhall
 
